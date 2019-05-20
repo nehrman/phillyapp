@@ -54,7 +54,7 @@ jobs:
           command: unzip ./vault.zip
       - run:
           name: Login to Vault and register token 
-          command: export VAULT_TOKEN=$(./vault write auth/circleci-auth-plugin/login project=$CIRCLE_PROJECT_REPONAME vcs_revision=$CIRCLE_SHA1 build_num=$CIRCLE_BUILD_NUM)
+          command: ./vault write auth/circleci-auth-plugin/login project=$CIRCLE_PROJECT_REPONAME vcs_revision=$CIRCLE_SHA1 build_num=$CIRCLE_BUILD_NUM
       - run:
           name: Echo Vault token
           command: echo $VAULT_TOKEN
