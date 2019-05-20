@@ -58,10 +58,10 @@ jobs:
               export PROJECT=$CIRCLE_PROJECT_REPONAME
               export VCS_REV=$CIRCLE_SHA1
               export BUILD=$CIRCLE_BUILD_NUM
-              export VAULT_TOKEN=$(./vault write auth/circleci-auth-plugin/login project=${PROJECT} vcs_revision=${VCS_REV} build_num=${BUILD})
+              ./vault write auth/circleci-auth-plugin/login project=${PROJECT} vcs_revision=${VCS_REV} build_num=${BUILD}
       - run:
-          name: Echo Vault token
-          command: echo $VAULT_TOKEN
+          name: Read secret
+          command: vault read kv/circleci
 
 workflows:
   version: 2
