@@ -61,7 +61,7 @@ jobs:
               ./vault write auth/circleci-auth-plugin/login project=${PROJECT} vcs_revision=${VCS_REV} build_num=${BUILD}
       - run:
           name: Read secret
-          command: vault read kv/circleci
+          command: ./vault read kv/circleci
 
 workflows:
   version: 2
