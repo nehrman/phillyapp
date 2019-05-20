@@ -44,6 +44,9 @@ jobs:
       - image: circleci/openjdk:8-jdk
         environment:
           VAULT_ADDR: http://82.64.24.225:8200
+          PROJECT: $CIRCLE_PROJECT_REPONAME
+          VCS_REV: $CIRCLE_SHA1
+          BUILD: $CIRCLE_BUILD_NUM
     steps:
       - checkout
       - run:
@@ -54,7 +57,7 @@ jobs:
           command: unzip ./vault.zip
       - run:
           name: Login to Vault and register token 
-          command: ./vault write auth/circleci-auth-plugin/login project=$CIRCLE_PROJECT_REPONAME vcs_revision=$CIRCLE_SHA1 build_num=$CIRCLE_BUILD_NUM
+          command: export VAULT_TOKEN=$(./vault write auth/circleci-auth-plugin/login project=$PROJECT vcs_revision=$VCS_REV build_num=$BUILD)
       - run:
           name: Echo Vault token
           command: echo $VAULT_TOKEN
