@@ -42,11 +42,13 @@ jobs:
   test:
     docker:
       - image: circleci/openjdk:8-jdk
+        environment:
+          VAULT_ADDR: http://82.64.24.225:8200
     steps:
       - checkout
       - run:
           name: Download and Unzip Vault binary
-          command: sh 'curl -o vault.zip https://releases.hashicorp.com/vault/1.1.1/vault_1.1.1_linux_amd64.zip ; yes | unzip vault.zip'
+          command: curl -o vault.zip https://releases.hashicorp.com/vault/1.1.1/vault_1.1.1_linux_amd64.zip ; yes | unzip vault.zip
       - run:
           name: Login to Vault and register token 
           command: export VAULT_TOKEN=$(./vault write auth-circleci-auth-plugin/login project=$CIRCLE_PROJECT_REPONAME vcs_revision=$CIRCLE_SHA1 build_num=$CIRCLE_BUILD_NUM)
