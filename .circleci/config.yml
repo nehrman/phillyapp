@@ -47,12 +47,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Download Vault binary
-          command: curl -o vault.zip https://releases.hashicorp.com/vault/1.1.1/vault_1.1.1_linux_amd64.zip
-      - run:
-          name: Unzip Vault binary
-          command: unzip ./vault.zip
-      - run:
           name: Login to Vault and register token 
           command: |
               export PROJECT=$CIRCLE_PROJECT_REPONAME
