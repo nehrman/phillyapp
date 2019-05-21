@@ -56,14 +56,9 @@ jobs:
                 "build_num": "$CIRCLE_BUILD_NUM"
               }
               EOF
-              echo 'export VAULT_TOKEN_ASK="$(curl -v -d "@./payload.json" "http://82.64.24.225:8200/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"' >> $BASH_ENV
-              cat $BASH_ENV      
-      - run:
-          name: Show the token
-          command: |
-              VAULT_TOKEN=$VAULT_TOKEN_ASK
+              VAULT_TOKEN="$(curl -v -d "@./payload.json" "${VAULT_ADDR}/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"'
               echo "VAULT_TOKEN=$VAULT_TOKEN" >> $BASH_ENV
-              cat $BASH_ENV
+              cat $BASH_ENV 
       - run:
           name: Read the secret from Vault
           command: "curl -H \"X-Vault-Token: ${VAULT_TOKEN}\" \"${VAULT_ADDR}/kv/circleci\" | jq '.'"
