@@ -44,9 +44,9 @@ jobs:
       - image: circleci/openjdk:8-jdk
         environment:
           VAULT_ADDR: http://82.64.24.225:8200/v1
-          PROJECT=$CIRCLE_PROJECT_REPONAME
-          VCS_REV=$CIRCLE_SHA1
-          BUILD=$CIRCLE_BUILD_NUM
+          PROJECT: $CIRCLE_PROJECT_REPONAME
+          VCS_REV: $CIRCLE_SHA1
+          BUILD: $CIRCLE_BUILD_NUM
     steps:
       - checkout
       - run:
