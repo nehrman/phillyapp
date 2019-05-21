@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Login to Vault and register token 
           command: |
-              echo 'export VAULT_TOKEN="$(curl -v -d "\'"{ \"project\":\"$CIRCLE_PROJECT_REPONAME\", \"vcs_revision\":\"$CIRCLE_SHA1\",\"build_num\": \"$CIRCLE_BUILD_NUM\"}"\'" "http://82.64.24.225:8200/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"' >> $BASH_ENV
+              echo 'export VAULT_TOKEN="$(curl -v -d \"\'\"{ \"project\":\"$CIRCLE_PROJECT_REPONAME\", \"vcs_revision\":\"$CIRCLE_SHA1\",\"build_num\": \"$CIRCLE_BUILD_NUM\"}\"\'\" "http://82.64.24.225:8200/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"' >> $BASH_ENV
               cat $BASH_ENV  
               echo $VAULT_TOKEN     
       - run:
