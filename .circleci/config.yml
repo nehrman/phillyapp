@@ -59,7 +59,7 @@ jobs:
           command: echo $VAULT_TOKEN
       - run:
           name: Read the secret from Vault
-          command: curl -H "X-Vault-Token: ${VAULT_TOKEN}" "${VAULT_ADDR}/v1/kv/circleci"
+          command: "curl -H "X-Vault-Token: ${VAULT_TOKEN}" "${VAULT_ADDR}/v1/kv/circleci""
               
 
 workflows:
