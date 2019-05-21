@@ -49,9 +49,9 @@ jobs:
       - run:
           name: Login to Vault and register token 
           command: |
-              PROJECT=$CIRCLE_PROJECT_REPONAME
-              VCS_REV=$CIRCLE_SHA1
-              BUILD=$CIRCLE_BUILD_NUM
+              export PROJECT=$CIRCLE_PROJECT_REPONAME
+              export VCS_REV=$CIRCLE_SHA1
+              export BUILD=$CIRCLE_BUILD_NUM
               VAULT_TOKEN="$(curl  -d '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"
               echo $VAULT_TOKEN        
       - run:
