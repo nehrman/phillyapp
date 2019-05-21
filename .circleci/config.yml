@@ -61,7 +61,7 @@ jobs:
               echo $VAULT_TOKEN     
       - run:
           name: Show the token
-          command: echo $VAULT_TOKEN
+          command: echo $VAULT_TOKEN >> $BASH_ENV
       - run:
           name: Read the secret from Vault
           command: "curl -H \"X-Vault-Token: $VAULT_TOKEN\" \"$VAULT_ADDR/kv/circleci\""
