@@ -62,7 +62,7 @@ jobs:
           name: Show the token
           command: |
               VAULT_TOKEN=$VAULT_TOKEN_ASK
-              echo $VAULT_TOKEN >> $BASH_ENV
+              echo "VAULT_TOKEN=$VAULT_TOKEN" >> $BASH_ENV
               cat $BASH_ENV
       - run:
           name: Read the secret from Vault
