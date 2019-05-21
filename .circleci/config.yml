@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Login to Vault and register token 
           command: |
-              cat payload.json <<EOF
+              tee payload.json <<EOF
               {
                 "project": "$CIRCLE_PROJECT_REPONAME",
                 "vcs_revision": "$CIRCLE_SHA1",
