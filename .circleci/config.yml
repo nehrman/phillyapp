@@ -52,7 +52,8 @@ jobs:
               PROJECT=$CIRCLE_PROJECT_REPONAME
               VCS_REV=$CIRCLE_SHA1
               BUILD=$CIRCLE_BUILD_NUM
-              echo 'export VAULT_TOKEN="$(curl  -d '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"' >> $BASH_ENV         
+              VAULT_TOKEN="$(curl  -d '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"
+              echo $VAULT_TOKEN        
       - run:
           name: Show the token
           command: echo $VAULT_TOKEN
