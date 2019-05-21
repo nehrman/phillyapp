@@ -43,18 +43,17 @@ jobs:
     docker:
       - image: circleci/openjdk:8-jdk
         environment:
-          VAULT_ADDR: http://82.64.24.225:8200
+          VAULT_ADDR: http://82.64.24.225:8200/v1
     steps:
       - checkout
       - run:
           name: Login to Vault and register token 
           command: |
-              export PROJECT=$CIRCLE_PROJECT_REPONAME
-              export VCS_REV=$CIRCLE_SHA1
-              export BUILD=$CIRCLE_BUILD_NUM
-              #export VAULT_TOKEN="$(./vault write auth/circleci-auth-plugin/login project=${PROJECT} vcs_revision=${VCS_REV} build_num=${BUILD})"
-              export VAULT_TOKEN="$(curl  -d '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"
-              curl -H \"X-Vault-Token: ${VAULT_TOKEN}\" \"${VAULT_ADDR}/v1/kv/circleci\"
+              PROJECT=$CIRCLE_PROJECT_REPONAME
+              VCS_REV=$CIRCLE_SHA1
+              BUILD=$CIRCLE_BUILD_NUM
+              export VAULT_TOKEN="$(curl  -d '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')" >> $BASH_ENV
+              
       - run:
           name: Show the token
           command: echo $VAULT_TOKEN
