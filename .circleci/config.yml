@@ -60,8 +60,13 @@ jobs:
               export BUILD=$CIRCLE_BUILD_NUM
               #export VAULT_TOKEN="$(./vault write auth/circleci-auth-plugin/login project=${PROJECT} vcs_revision=${VCS_REV} build_num=${BUILD})"
               export VAULT_TOKEN="$(curl -v --data '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"
-              echo $VAULT_TOKEN
-              ./vault read kv/circleci
+      - run:
+          name: Show the token
+          command: echo $VAULT_TOKEN
+      - run:
+          name: Read the secret from Vault
+          command: curl -H "X-Auth-Token: ${VAULT_TOKEN}" "${VAULT_ADDR}/v1/kv/circleci"
+              
 
 workflows:
   version: 2
