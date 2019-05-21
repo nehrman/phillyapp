@@ -59,7 +59,7 @@ jobs:
               export VCS_REV=$CIRCLE_SHA1
               export BUILD=$CIRCLE_BUILD_NUM
               #export VAULT_TOKEN="$(./vault write auth/circleci-auth-plugin/login project=${PROJECT} vcs_revision=${VCS_REV} build_num=${BUILD})"
-              export VAULT_TOKEN="$(curl -v --data '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login")"
+              export VAULT_TOKEN="$(curl -v --data '{"project": "'"$PROJECT"'", "vcs_revision": "'"$VCS_REV"'", "build_num": "'"$BUILD"'"}' "${VAULT_ADDR}/v1/auth/circleci-auth-plugin/login" | jq '.auth.client_token')"
               echo $VAULT_TOKEN
               #./vault read kv/circleci
 
