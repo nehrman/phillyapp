@@ -56,7 +56,7 @@ jobs:
                 "build_num": "$CIRCLE_BUILD_NUM"
               }
               EOF
-              VAULT_TOKEN="$(curl -v -d "@./payload.json" "${VAULT_ADDR}/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"'
+              VAULT_TOKEN="$(curl -v -d "@./payload.json" "${VAULT_ADDR}/auth/circleci-auth-plugin/login" | jq -r '.auth.client_token')"
               echo "VAULT_TOKEN=$VAULT_TOKEN" >> $BASH_ENV
               cat $BASH_ENV 
       - run:
